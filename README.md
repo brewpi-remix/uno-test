@@ -13,7 +13,7 @@ This firmware will allow you to test the setup of your BrewPi family Arduino Uno
 1. Test the heat and cool relays (pins 5 and 6)
 1. Clear the EEPROM to avoid issues saving the sensors later on
 
-# ![Arduino Uno Pin Diagram](ttps://raw.githubusercontent.com/brewpi-remix/uno-test/master/images//Arduino-Uno-Pin-Diagram.png)
+# ![Arduino Uno Pin Diagram](https://github.com/brewpi-remix/uno-test/blob/main/images/Arduino-Uno-Pin-Diagram.png)
 
 It will automatically check for an I2C display, and if found, will show a test on the display.  It will then scan the proper pin for the variant; A4 if no I2C is detected, and A0 if an I2C is present.
 
@@ -84,4 +84,4 @@ EEPROM clear complete.
 BrewPi Family Arduino Uno Test complete.
 ```
 
-# ![LCD Display](ttps://raw.githubusercontent.com/brewpi-remix/uno-test/master/images//i2c_test.jpg)
+# ![LCD Display](https://github.com/brewpi-remix/uno-test/blob/main/images/i2c_test.jpg)
