@@ -10,6 +10,7 @@
 
 #include "config.h" // Should be after Arduino.h
 
+void initRelays();
 void testRelays();
 
 extern bool hasLCD;

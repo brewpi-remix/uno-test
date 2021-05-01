@@ -8,6 +8,16 @@ const int relayPinNum[] = {
     HEATRELAY,
     COOLRELAY};
 
+void initRelays()
+{
+    for (int i = 0; i < (int)sizeof(relayPinNum) / (int)sizeof(relayPinNum[0]); i++)
+    {
+    // Initialize relays off
+        pinMode(relayPinNum[i], OUTPUT);
+        digitalWrite(relayPinNum[i], RELAYOFF);
+    }
+}
+
 void testRelays()
 {
     for (int i = 0; i < (int)sizeof(relayPinNum) / (int)sizeof(relayPinNum[0]); i++)

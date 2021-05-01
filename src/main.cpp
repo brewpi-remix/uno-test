@@ -2,11 +2,7 @@
 
 void setup()
 {
-    // Initialize relays off
-    pinMode(HEATRELAY, OUTPUT);
-    digitalWrite(HEATRELAY, RELAYOFF);
-    pinMode(COOLRELAY, OUTPUT);
-    digitalWrite(COOLRELAY, RELAYOFF);
+    initRelays();   // Initialize relays
 
     // Initialize the LED pin as an output.
     pinMode(LED_BUILTIN, OUTPUT);
