@@ -2,13 +2,28 @@
 
 void erase()
 {
-  // Iterate through each byte of the EEPROM storage and clear it
     Log.notice(F(CR "Clearing EEPROM." CR));
-
-    for (uint16_t i = 0; i < EEPROM.length(); i++)
+    if (hasLCD)
     {
-        EEPROM.write(i, 0);
+        lcd.clear();
+        lcd.setCursor(2, 0);
+        lcd.print("Clearing EEPROM.");
+        _delay(1000);
     }
-
+    for (int i = 0; i < (int)EEPROM.length(); i++)
+    {
+        // Only clear EEPROM if it's not clear
+        // This reduces wear on the memory
+        if (EEPROM.read(i) != 0)
+            EEPROM.write(i, 0);
+    }
+    _delay(1000);
     Log.notice(F("EEPROM clear complete." CR));
+    if (hasLCD)
+    {
+        lcd.clear();
+        lcd.setCursor(2, 0);
+        lcd.print("EEPROM cleared.");
+        _delay(2000);
+    }
 }
