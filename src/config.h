@@ -1,8 +1,8 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
-#define LEDON HIGH
-#define LEDOFF LOW
+#define LEDON LOW
+#define LEDOFF HIGH
 #define RELAYON LOW
 #define RELAYOFF HIGH
 #define NORMAL_PIN A4
