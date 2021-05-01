@@ -2,11 +2,16 @@
 
 void setup()
 {
-    setSerial(); // Starts serial and ArduinoLog
+    // Initialize relays off
+    pinMode(HEATRELAY, OUTPUT);
+    digitalWrite(HEATRELAY, RELAYOFF);
+    pinMode(COOLRELAY, OUTPUT);
+    digitalWrite(COOLRELAY, RELAYOFF);
 
     // Initialize the LED pin as an output.
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LEDON); // Turn LED on
+    setSerial(); // Starts serial and ArduinoLog
 
     Log.verbose(F(CR "BrewPi Family Arduino Uno Test beginning." CR));
 
