@@ -85,3 +85,54 @@ BrewPi Family Arduino Uno Test complete.
 ```
 
 # ![LCD Display](https://github.com/brewpi-remix/uno-test/blob/main/images/i2c_test.jpg)
+
+# Flashing from Internet
+
+Provided you Pi has `avrdude` installed (which is installed as part of BrewPi,) you may issue a few commands to download and flash the test firmware.
+
+## Find Port
+
+You will need the path to the serial port used by the Arduino Uno.  Assuming you have BrewPi installed, you may leverage some of the installed libraries to find the path to that port:
+
+1. Change to the BrewPi user: `sudo su - brewpi`
+2. Activate the virtual environment: `activate`
+3. List compatible serial ports (command is all one line): `python -c 'from autoSerial import find_compatible_serial_ports as fp; print(list(fp()))'`
+
+Example:
+
+``` bash
+(bpr) brewpi@brewpi:~ $ python -c 'from autoSerial import find_compatible_serial_ports as fp; print(list(fp()))'
+[('/dev/ttyUSB0', 'Arduino Uno')]
+```
+
+In this case, /dev/ttyUSB0 is the only Arduino Uno found.  If there is more than one, a list will be printed.  Pick the `/dev/*` device you wish to manipulate.
+
+If oyu do not have BrewPi installed, you will habe to find the port in a different way.
+
+## BrewPi Wiring Test
+
+Download the wiring test firmware to your home directory:
+
+``` bash
+curl -O https://github.com/brewpi-remix/uno-test/raw/main/firmware/firmware.hex -o "/home/pi/firmware.hex"
+```
+
+Flash the test firmware (remember to change the serial port in the -P argument below):
+
+``` bash
+/usr/share/arduino/hardware/tools/avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/firmware.hex" -C "/usr/share/arduino/hardware/tools/avrdude.conf"
+```
+
+## Blank Uno
+
+To blank the Uno, download the blank firmware to your home directory:
+
+``` bash
+curl -O https://github.com/brewpi-remix/uno-test/raw/main/firmware/blank.hex -o "/home/pi/blank.hex"
+```
+
+Flash the blank firmware (remember to change the serial port in the -P argument below):
+
+``` bash
+/usr/share/arduino/hardware/tools/avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/blank.hex" -C "/usr/share/arduino/hardware/tools/avrdude.conf"
+```
