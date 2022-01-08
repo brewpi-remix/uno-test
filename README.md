@@ -4,14 +4,14 @@
 
 This firmware will allow you to test the setup of your BrewPi family Arduino Uno.  The program will:
 
-1. Turn the onboard LED on
-1. Scan for an I2C device.  If found, it will use A0 for sensor tests; otherwise, it will use the original A4 pin for sensors.  If the program detects an I2C LCD, a test message will display
-1. Check the OneWire
-    1. Display if parasitic sensors are present on the bus
-    1. Display the number and type of sensors found
-    1. Display the address and current temperature for each sensor
-1. Test the heat and cool relays (pins 5 and 6)
-1. Clear the EEPROM to avoid issues saving the sensors later on
+1.  Turn the onboard LED on
+1.  Scan for an I2C device.  It will use A0 for sensor tests if the scan finds an I2C device; otherwise, it will use the original A4 pin for sensors.  If the program detects an I2C LCD, a test message will display
+1.  Check the OneWire
+    1.  Display if parasitic sensors are present on the bus
+    1.  Display the number and type of sensors found
+    1.  Display the address and current temperature for each sensor
+1.  Test the heat and cool relays (pins 5 and 6)
+1.  Clear the EEPROM to avoid issues saving the sensors later on
 
 # ![Arduino Uno Pin Diagram](https://github.com/brewpi-remix/uno-test/blob/main/images/Arduino-Uno-Pin-Diagram.png)
 
@@ -88,14 +88,18 @@ BrewPi Family Arduino Uno Test complete.
 
 # Flashing from Internet
 
-Provided you Pi has `avrdude` installed (which is installed as part of BrewPi,) you may issue a few commands to download and flash the test firmware.
+Provided your Pi has `avrdude` installed (which is installed as part of BrewPi,) you may issue a few commands to download and flash the test firmware.  If you do not have BrewPi installed, be sure to install `avrdude` manually:
+
+``` bash
+sudo apt install avrdude
+```
 
 ## Find Port
 
 You will need the path to the serial port used by the Arduino Uno.  Assuming you have BrewPi installed, you may leverage some of the installed libraries to find the path to that port:
 
-1. Change to the BrewPi user: `sudo su - brewpi`
-2. Activate the virtual environment: `activate`
+1.  Change to the BrewPi user: `sudo su - brewpi`
+2.  Activate the virtual environment: `activate`
 3. List compatible serial ports (command is all one line): `python -c 'from autoSerial import find_compatible_serial_ports as fp; print(list(fp()))'`
 
 Example:
@@ -107,7 +111,7 @@ Example:
 
 In this case, /dev/ttyUSB0 is the only Arduino Uno found.  If there is more than one, a list will be printed.  Pick the `/dev/*` device you wish to manipulate.
 
-If oyu do not have BrewPi installed, you will habe to find the port in a different way.
+If you do not have BrewPi installed, you will have to find the port independently.
 
 ## BrewPi Wiring Test
 
@@ -123,6 +127,12 @@ Flash the test firmware (remember to change the serial port in the -P argument b
 /usr/share/arduino/hardware/tools/avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/firmware.hex" -C "/usr/share/arduino/hardware/tools/avrdude.conf"
 ```
 
+If you receive a "command not found error" try this version:
+
+``` bash
+avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/firmware.hex" -C "/etc/avrdude.conf"
+```
+
 ## Blank Uno
 
 To blank the Uno, download the blank firmware to your home directory:
@@ -135,4 +145,10 @@ Flash the blank firmware (remember to change the serial port in the -P argument 
 
 ``` bash
 /usr/share/arduino/hardware/tools/avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/blank.hex" -C "/usr/share/arduino/hardware/tools/avrdude.conf"
+```
+
+If you receive a "command not found error," try this version:
+
+``` bash
+avrdude -F -e -p atmega328p -c arduino -b 115200 -P /dev/ttyUSB0 -U flash:w:"/home/pi/firmware.hex" -C "/etc/avrdude.conf"
 ```
